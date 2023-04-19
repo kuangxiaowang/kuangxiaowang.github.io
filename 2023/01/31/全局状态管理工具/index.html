@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kuangxiaowang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null,"Available values":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一、为什么要使用全局状态管理工具在MVVM模式的前端框架中，遵循单向数据流理念。 单向数据流核心概念  state，驱动应用的数据源； view，以声明方式将 state 映射到视图； actions，响应在 view 上的用户输入导致的状态变化。  但是，当我们的应用遇到多个组件共享状态（数据）时，单向数据流的简洁性很容易被破坏，所以我们不得不通过频繁父子组件传递数据的方式，来修改状态（数据）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="全局状态管理工具">
+<meta property="og:url" content="https://kuangxiaowang.github.io/2023/01/31/%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="狂小汪的博客">
+<meta property="og:description" content="一、为什么要使用全局状态管理工具在MVVM模式的前端框架中，遵循单向数据流理念。 单向数据流核心概念  state，驱动应用的数据源； view，以声明方式将 state 映射到视图； actions，响应在 view 上的用户输入导致的状态变化。  但是，当我们的应用遇到多个组件共享状态（数据）时，单向数据流的简洁性很容易被破坏，所以我们不得不通过频繁父子组件传递数据的方式，来修改状态（数据）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-31T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-31T07:13:38.884Z">
+<meta property="article:author" content="狂小汪">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://kuangxiaowang.github.io/2023/01/31/%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kuangxiaowang.github.io/2023/01/31/%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/","path":"2023/01/31/全局状态管理工具/","title":"全局状态管理工具"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>全局状态管理工具 | 狂小汪的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">狂小汪的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">一、为什么要使用全局状态管理工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">二、全局状态管理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Vuex"><span class="nav-number">2.1.</span> <span class="nav-text">1.Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Vuex%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.1.</span> <span class="nav-text">(1)Vuex核心概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">(2)使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Pinia"><span class="nav-number">2.2.</span> <span class="nav-text">2.Pinia</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.1.</span> <span class="nav-text">(1)使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-provide-inject"><span class="nav-number">2.3.</span> <span class="nav-text">3.provide&#x2F;inject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-EventBus-%E4%BB%BB%E6%84%8F%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">2.4.</span> <span class="nav-text">4.EventBus 任意组件间通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Vue-observable"><span class="nav-number">2.5.</span> <span class="nav-text">5.Vue.observable()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-redux"><span class="nav-number">2.6.</span> <span class="nav-text">6.redux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-react-redux-%E4%B8%93%E9%97%A8%E7%94%A8%E4%BA%8Ereact%E6%A1%86%E6%9E%B6%E9%A1%B9%E7%9B%AE%E4%B8%AD"><span class="nav-number">2.7.</span> <span class="nav-text">7.react-redux(专门用于react框架项目中)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="狂小汪"
+      src="https://vcdn.pharmcube.com/100.jpg">
+  <p class="site-author-name" itemprop="name">狂小汪</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kuangxiaowang.github.io/2023/01/31/%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://vcdn.pharmcube.com/100.jpg">
+      <meta itemprop="name" content="狂小汪">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="狂小汪的博客">
+      <meta itemprop="description" content="">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="全局状态管理工具 | 狂小汪的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          全局状态管理工具
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-31 21:00:00 / 修改时间：15:13:38" itemprop="dateCreated datePublished" datetime="2023-01-31T21:00:00+08:00">2023-01-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="一、为什么要使用全局状态管理工具"><a href="#一、为什么要使用全局状态管理工具" class="headerlink" title="一、为什么要使用全局状态管理工具"></a>一、为什么要使用全局状态管理工具</h2><p>在MVVM模式的前端框架中，遵循单向数据流理念。</p>
+<p>单向数据流核心概念</p>
+<ul>
+<li><strong>state</strong>，驱动应用的数据源；</li>
+<li><strong>view</strong>，以声明方式将 <strong>state</strong> 映射到视图；</li>
+<li><strong>actions</strong>，响应在 <strong>view</strong> 上的用户输入导致的状态变化。</li>
+</ul>
+<p>但是，当我们的应用遇到多个组件共享状态（数据）时，单向数据流的简洁性很容易被破坏，所以我们不得不通过频繁父子组件传递数据的方式，来修改状态（数据）。这导致了迭代中难以维护的代码。</p>
+<p>所以，我们想到把多个组件之间共用的数据抽离出来，通过一个单例模式进行管理，而这种管理的方式就叫做【全局状态管理模式】。</p>
+<span id="more"></span>
+
+<h2 id="二、全局状态管理工具"><a href="#二、全局状态管理工具" class="headerlink" title="二、全局状态管理工具"></a>二、全局状态管理工具</h2><h3 id="1-Vuex"><a href="#1-Vuex" class="headerlink" title="1.Vuex"></a>1.Vuex</h3><h4 id="1-Vuex核心概念"><a href="#1-Vuex核心概念" class="headerlink" title="(1)Vuex核心概念"></a><strong>(1)Vuex核心概念</strong></h4><table>
+<thead>
+<tr>
+<th>State</th>
+<th>共享状态（即变量）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Getter</td>
+<td>基于state的派生状态，可理解为组件中的计算属性</td>
+</tr>
+<tr>
+<td>Mutation</td>
+<td>更改vuex的store中状态的唯一方法，通过提交mutation修改状态，同步操作（规则上是不允许异步操作的，虽然异步也可以执行，但是对devtool调试的状态跟踪或多个状态更改操作相互依赖是很不好的，所以不要觉得只要不报错我就可以这么用，还是尽量按照规则来比较好）</td>
+</tr>
+<tr>
+<td>Action</td>
+<td>类似mutation，不同之处，1.通过提交mutation修改状态  2.支持异步操作</td>
+</tr>
+<tr>
+<td>Module</td>
+<td>模块，在大型项目中为了方便状态的管理和协作开发将store拆分为多个子模块（modules），每个子模块拥有完整的state、mutation、action、getter</td>
+</tr>
+</tbody></table>
+<h4 id="2-使用"><a href="#2-使用" class="headerlink" title="(2)使用"></a>(2)使用</h4><p>新建store.js ，引入vuex，结构如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createStore&#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(&#123;</span><br><span class="line">    <span class="attr">state</span>: &#123;&#125;,</span><br><span class="line">    <span class="attr">getters</span>: &#123;&#125;,</span><br><span class="line">    <span class="attr">mutations</span>: &#123;&#125;,</span><br><span class="line">    <span class="attr">actions</span>: &#123;&#125;,</span><br><span class="line">    <span class="attr">modules</span>: &#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure>
+
+<p>在根实例中注册store</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.use(store)</span><br></pre></td></tr></table></figure>
+
+<p>①state–状态　　</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import &#123;createStore&#125; from &#x27;vuex&#x27;</span><br><span class="line"></span><br><span class="line">const store = createStore(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        name:&#x27;张三&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    mutations: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;,</span><br><span class="line">    modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line">export default store</span><br><span class="line">import &#123;mapState&#125; from &#x27;vuex&#x27;</span><br><span class="line">...</span><br><span class="line">    computed: &#123;</span><br><span class="line">      ...mapState([&#x27;name&#x27;])</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<p> ②mutation–更改store中状态的唯一方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import &#123;createStore&#125; from &#x27;vuex&#x27;</span><br><span class="line"></span><br><span class="line">const store = createStore(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        name:&#x27;张三&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    mutations: &#123;</span><br><span class="line">        //1.不带参数</span><br><span class="line">        changeName(state) &#123;</span><br><span class="line">            state.name = &quot;李四&quot;;</span><br><span class="line">        &#125;,</span><br><span class="line">        //2.带参数</span><br><span class="line">        changeNameWithParam(state, payload) &#123;</span><br><span class="line">            state.name = payload.name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;&#125;,</span><br><span class="line">    modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line">export default store</span><br><span class="line"> methods: &#123;</span><br><span class="line">        setName() &#123;</span><br><span class="line">            this.$store.commit(&quot;changeName&quot;);</span><br><span class="line">        &#125;,</span><br><span class="line">        setNameWithParam() &#123;</span><br><span class="line">            this.$store.commit(&quot;changeNameWithParam&quot;, &#123;</span><br><span class="line">                name: &#x27;李四&#x27;,</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用mapMutations</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  methods: &#123;</span><br><span class="line">        //将this.changeName映射为this.$store.commit(&#x27;changeName&#x27;)</span><br><span class="line">        ...mapMutations([&quot;changeName&quot;, &quot;changeNameWithParam&quot;]),</span><br><span class="line">        setName() &#123;</span><br><span class="line">            this.changeName();</span><br><span class="line">        &#125;,</span><br><span class="line">        setNameWithParam() &#123;</span><br><span class="line">            this.changeNameWithParam(&#123; name: &#x27;李四&#x27; &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>③action–异步更改状态</p>
+<p>mutation中规则上是不允许异步操作的，想要异步的进行更改状态使用action。action中不能直接更改状态，它是通过提交mutation来实现操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">import &#123;createStore&#125; from &#x27;vuex&#x27;</span><br><span class="line"></span><br><span class="line">const store = createStore(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        name:&#x27;张三&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    mutations: &#123;</span><br><span class="line">        //1.不带参数</span><br><span class="line">        changeName(state) &#123;</span><br><span class="line">            state.name = &quot;李四&quot;;</span><br><span class="line">        &#125;,</span><br><span class="line">        //2.带参数</span><br><span class="line">        changeNameWithParam(state, payload) &#123;</span><br><span class="line">            state.name = payload.name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;</span><br><span class="line">        //1.不带参数</span><br><span class="line">        changeNameAsync(context) &#123;</span><br><span class="line">            //可以通过context.state来获取store中变量</span><br><span class="line">            let _name = context.state.name;</span><br><span class="line">            //异步更改</span><br><span class="line">            setTimeout(() =&gt; &#123;</span><br><span class="line">                context.commit(&quot;changeName&quot;);</span><br><span class="line">            &#125;, 1000);</span><br><span class="line">        &#125;,</span><br><span class="line">        //2.带参数</span><br><span class="line">        changeNameWithParamAsync(context, payload) &#123;</span><br><span class="line">            //异步更改</span><br><span class="line">            setTimeout(() =&gt; &#123;</span><br><span class="line">                context.commit(&quot;changeNameWithParam&quot;, payload);</span><br><span class="line">            &#125;, 1000);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line">export default store</span><br><span class="line"> methods: &#123;</span><br><span class="line">        setNameAsync() &#123;</span><br><span class="line">            this.$store.dispatch(&quot;changeNameAsync&quot;);</span><br><span class="line">        &#125;,</span><br><span class="line">        setNameAsycn() &#123;</span><br><span class="line">            this.$store.dispatch(&quot;changeNameWithParamAsync&quot;, &#123;</span><br><span class="line">                name: &quot;李四&quot;,</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>mapActions和mapMutations原理一样解构到methods中使用</p>
+<p>④getter–store中state的计算属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">import &#123;createStore&#125; from &#x27;vuex&#x27;</span><br><span class="line"></span><br><span class="line">const store = createStore(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        name:&#x27;张三&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    getters: &#123;</span><br><span class="line">         //1.不带参数</span><br><span class="line">        getName: (state) =&gt; &#123;</span><br><span class="line">            let nameFix = &quot;&quot;;</span><br><span class="line">            if (state.name === &quot;张三&quot;) &#123;</span><br><span class="line">                nameFix = &quot;最棒&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            return state.name + nameFix;</span><br><span class="line">        &#125;,</span><br><span class="line">        //2.带参数</span><br><span class="line">        getNameWithParam: (state) =&gt; (val) =&gt; &#123;</span><br><span class="line">            let nameFix = &quot;&quot;;</span><br><span class="line">            if (state.name === &quot;张三&quot;) &#123;</span><br><span class="line">                nameFix = val;</span><br><span class="line">            &#125;</span><br><span class="line">            return state.name + nameFix;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    mutations: &#123;</span><br><span class="line">        //1.不带参数</span><br><span class="line">        changeName(state) &#123;</span><br><span class="line">            state.name = &quot;李四&quot;;</span><br><span class="line">        &#125;,</span><br><span class="line">        //2.带参数</span><br><span class="line">        changeNameWithParam(state, payload) &#123;</span><br><span class="line">            state.name = payload.name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;</span><br><span class="line">        //1.不带参数</span><br><span class="line">        changeNameAsync(context) &#123;</span><br><span class="line">            //可以通过context.state来获取store中变量</span><br><span class="line">            let _name = context.state.name;</span><br><span class="line">            //异步更改</span><br><span class="line">            setTimeout(() =&gt; &#123;</span><br><span class="line">                context.commit(&quot;changeName&quot;);</span><br><span class="line">            &#125;, 1000);</span><br><span class="line">        &#125;,</span><br><span class="line">        //2.带参数</span><br><span class="line">        changeNameWithParamAsync(context, payload) &#123;</span><br><span class="line">            //异步更改</span><br><span class="line">            setTimeout(() =&gt; &#123;</span><br><span class="line">                context.commit(&quot;changeNameWithParam&quot;, payload);</span><br><span class="line">            &#125;, 1000);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line">export default store</span><br><span class="line">import &#123;mapGetters&#125; from &#x27;vuex&#x27;</span><br><span class="line">...</span><br><span class="line">    computed: &#123;</span><br><span class="line">      ...mapGetters([&#x27;getName&#x27;,&#x27;getNameWithParam&#x27;])</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>⑤module，它是对store的一个分割，将store分割成一个个小的模块，每个模块中又具有store完整的功能。主要面向一些状态非常多的大型应用。</p>
+<p>⑥持久缓存</p>
+<p>方式一：自定义存储</p>
+<p>app.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">created () &#123;</span><br><span class="line">     var store = require(&#x27;store&#x27;); </span><br><span class="line">     //在页面加载时读取sessionStorage里的状态信息</span><br><span class="line">     if (sessionStorage.getItem(&quot;storedata&quot;) ) &#123;</span><br><span class="line">         this.$store.replaceState(Object.assign(&#123;&#125;, this.$store.state,JSON.parse(sessionStorage.getItem(&quot;storedata&quot;))))</span><br><span class="line">     &#125;</span><br><span class="line">     //在页面刷新时将vuex里的信息保存到sessionStorage里</span><br><span class="line">     window.addEventListener(&quot;beforeunload&quot;,()=&gt;&#123;</span><br><span class="line">         sessionStorage.setItem(&quot;storedata&quot;,JSON.stringify(this.$store.state))</span><br><span class="line">     &#125;);</span><br><span class="line">     // 兼容iphone手机</span><br><span class="line">     window.addEventListener(&quot;pagehide&quot;,()=&gt;&#123;</span><br><span class="line">         sessionStorage.setItem(&quot;storedata&quot;,JSON.stringify(this.$store.state))</span><br><span class="line">     &#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>方式二：使用vuex插件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123;createStore&#125; from &#x27;vuex&#x27;</span><br><span class="line">import createPersistedState from &quot;vuex-persistedstate&quot;</span><br><span class="line">const store = createStore(&#123;</span><br><span class="line">    state: &#123;&#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    mutations: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;,</span><br><span class="line">    modules: &#123;&#125;,</span><br><span class="line">    plugins: [createPersistedState(&#123; storage: window.sessionStorage &#125;)],</span><br><span class="line">&#125;)</span><br><span class="line">export default store</span><br></pre></td></tr></table></figure>
+
+<p>在vue3中使用，用useStore创建store实例代替this.$store，其余用法同vue2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; useStore &#125; from &#x27;vuex&#x27;</span><br><span class="line">const store = useStore()</span><br><span class="line">const name = store.state.name</span><br><span class="line">const nameAll = store.getters.getNameWithParam(&#x27;最棒&#x27;)</span><br><span class="line">store.commit(&#x27;setWebsiteInfo&#x27;, &#123;</span><br><span class="line">    name: &#x27;李四&#x27;,</span><br><span class="line">&#125;)</span><br><span class="line">store.dispatch(&quot;changeNameWithParamAsync&quot;, &#123;</span><br><span class="line">    name: &quot;李四&quot;,</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Pinia"><a href="#2-Pinia" class="headerlink" title="2.Pinia"></a>2.Pinia</h3><p> 与vuex 相比，Pinia 提供了更简单的 API，具有更少的操作，提供了更符合Composition 风格的 API，以及更好的TypeScript 支持。非常轻巧，只有大约 1kb 的大小。所以更推荐使用Pinia代替vuex。</p>
+<h4 id="1-使用"><a href="#1-使用" class="headerlink" title="(1)使用"></a>(1)使用</h4><p>①<code>main.js</code> 初始化配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createPinia &#125; from &#x27;pinia&#x27;</span><br><span class="line">createApp(App).use(createPinia()).mount(&#x27;#app&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>在vue2中需要多使用一个插件，并且在vue2中，Pinia 使用 vuex 的现有接口（因此不能与它一起使用）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createPinia, PiniaVuePlugin &#125; from &#x27;pinia&#x27;</span><br><span class="line">Vue.use(PiniaVuePlugin)</span><br><span class="line">const pinia = createPinia()</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#x27;#app&#x27;,</span><br><span class="line">  pinia,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p> ②在 store 目录下创建一个user模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; defineStore &#125; from &#x27;pinia&#x27;</span><br><span class="line">export const userStore = defineStore(&#x27;user&#x27;, &#123;</span><br><span class="line">    state: () =&gt; &#123;</span><br><span class="line">        return &#123; </span><br><span class="line">            count: 1,</span><br><span class="line">            arr: []</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>state</code> 用来存储全局状态。</li>
+<li><code>getters</code> 用来封装计算属性。</li>
+<li><code>actions</code> 用来封装修改 state的方法。</li>
+</ul>
+<p>注：state为了更好的 TS 类型推导必须是箭头函数。</p>
+<p>③访问 state</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;&#123;&#123; user_store.count &#125;&#125;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; userStore &#125; from &#x27;../store&#x27;</span><br><span class="line">const user_store = userStore()</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注：若是以解构的形式使用count，需要使用storeToRefs()，否则数据不是响应式的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;&#123;&#123; count &#125;&#125;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; storeToRefs &#125; from &#x27;pinia&#x27;</span><br><span class="line">import &#123; userStore &#125; from &#x27;../store&#x27;</span><br><span class="line">const &#123; count &#125; = storeToRefs(userStore)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>④getters</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">getters: &#123;</span><br><span class="line">    myCount()&#123;</span><br><span class="line">        return this.count + 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：getters有缓存，重复调用只有第一次会调用，之后会读取缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; userStore &#125; from &#x27;../store&#x27;</span><br><span class="line">const user_store = userStore()</span><br><span class="line">console.log(user_store.myCount)   </span><br><span class="line">console.log(user_store.myCount)   </span><br><span class="line">console.log(user_store.myCount)</span><br><span class="line">//三次输出数值是一样的  </span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>⑤actions</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">    changeState(num)&#123; </span><br><span class="line">        this.count += num</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;&#123;&#123; user_store.count &#125;&#125;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; userStore &#125; from &#x27;../store&#x27;</span><br><span class="line">const user_store = userStore()</span><br><span class="line">const handleClick = () =&gt; &#123;</span><br><span class="line">    user_store.changeState(1)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注：不能用箭头函数定义 actions，不然就会绑定外部的 this 了</p>
+<h3 id="3-provide-inject"><a href="#3-provide-inject" class="headerlink" title="3.provide/inject"></a>3.provide/inject</h3><p>(1)特点：provide和inject是成对出现的，provide在父组件中返回要传给下级的数据，inject在需要使用这个数据的子辈组件或者孙辈等下级组件中注入数据。专门用于父组件向子孙组件传递数据。</p>
+<p>(2)使用：</p>
+<p>父组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; ref, provide &#125; from &quot;vue&quot;;</span><br><span class="line">const count = ref(1)</span><br><span class="line">provide(&#x27;count&#x27;, count)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>孙辈组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; inject &#125; from &quot;vue&quot;;</span><br><span class="line">const count = inject(&#x27;count&#x27;)</span><br><span class="line">console.log(count.value)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>禁止孙辈组件直接修改父组件的数据，不符合单项数据流，需要父组件提供修改数据的方法，孙辈组件接收并使用这个方法，这样修改的就是父组件的数据，修改之后又会影响孙辈组件的数据。</p>
+<p>父组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; ref, provide , readonly &#125; from &quot;vue&quot;;</span><br><span class="line">const count = ref(1)</span><br><span class="line">//provide提供响应式数据,结合readonly使用，孙辈组件只可以使用，不可以修改。</span><br><span class="line">provide(&#x27;count&#x27;, readonly(count))</span><br><span class="line">const change = (value) =&gt; &#123;</span><br><span class="line">      count.value = value</span><br><span class="line">&#125;</span><br><span class="line">provide(&quot;change&quot;, change)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>孙辈组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; inject &#125; from &quot;vue&quot;;</span><br><span class="line">const count = inject(&#x27;count&#x27;)</span><br><span class="line">const change = inject(&#x27;change&#x27;)</span><br><span class="line">change(2)</span><br><span class="line">console.log(count.value)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注：inject只能在setup()或函数式组件内部使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; inject &#125; from &quot;vue&quot;;</span><br><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">    const count = inject(&#x27;count&#x27;)  </span><br><span class="line">    console.log(count.value)     //报错,因为setTimeout是异步函数，执行console.log(count.value)的时候已经不在setup()生命周期里。</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>同理在鼠标事件回调和Promise.then()中也是不能使用inject的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">  console.log(inject(&quot;count&quot;))    //报错</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>因此provide/inject只用于父组件向子孙组件传递数据，不用于其他关系组件之间传递数据。因为具有父子关系的组件渲染顺序是确定的。</p>
+<h3 id="4-EventBus-任意组件间通信"><a href="#4-EventBus-任意组件间通信" class="headerlink" title="4.EventBus 任意组件间通信"></a>4.<a target="_blank" rel="noopener" href="https://www.cnblogs.com/renhj1996/p/15167454.html">EventBus 任意组件间通信</a></h3><p>使用</p>
+<p>新创建一个 eventBus.js 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">export const EventBus = new Vue()</span><br></pre></td></tr></table></figure>
+
+<p>A组件发送信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- A.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;button @click=&quot;sendMsg()&quot;&gt;-&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt; </span><br><span class="line">import &#123; EventBus &#125; from &quot;../eventBus.js&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    sendMsg() &#123;</span><br><span class="line">      EventBus.$emit(&quot;aMsg&quot;, &#x27;来自A页面的消息&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;; </span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>B组件接受信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- B.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;p&gt;&#123;&#123;msg&#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt; </span><br><span class="line">import &#123; EventBus &#125; from &quot;../eventBus.js&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    EventBus.$on(&quot;aMsg&quot;, (msg) =&gt; &#123;</span><br><span class="line">      // A发送来的消息</span><br><span class="line">      this.msg = msg;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>B组件的监听事件不会自动销毁，需要手动销毁</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">beforeDestroy&#123;</span><br><span class="line">    EventBus.$off(&#x27;aMsg&#x27;, &#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：项目中应该慎用<a target="_blank" rel="noopener" href="https://www.cnblogs.com/renhj1996/p/15167454.html">EventBus</a>，在组件中随意传递数据可能会导致难以维护的迭代代码。</p>
+<h3 id="5-Vue-observable"><a href="#5-Vue-observable" class="headerlink" title="5.Vue.observable()"></a>5.Vue.observable()</h3><p><a target="_blank" rel="noopener" href="https://v2.cn.vuejs.org/v2/api/#Vue-observable">官方文档</a></p>
+<p>vue2.6发布的一个新的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=api&spm=1001.2101.3001.7020">api</a>，可以处理简单的跨组件共享数据状态的问题 ，可以说是个精简版的vuex</p>
+<p>使用</p>
+<p>在store目录新建store.js文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">export const store = Vue.observable(&#123; count: 0 &#125;)</span><br><span class="line">export const mutations = &#123;</span><br><span class="line">  setCount (count) &#123;</span><br><span class="line">    store.count = count</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>引用示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;label for=&quot;bookNum&quot;&gt;数 量&lt;/label&gt;</span><br><span class="line">            &lt;button @click=&quot;setCount(count+1)&quot;&gt;+&lt;/button&gt;</span><br><span class="line">            &lt;span&gt;&#123;&#123;count&#125;&#125;&lt;/span&gt;</span><br><span class="line">            &lt;button @click=&quot;setCount(count-1)&quot;&gt;-&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; store, mutations &#125; from &#x27;../store/store&#x27; </span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;Add&#x27;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    count () &#123;</span><br><span class="line">      return store.count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    setCount: mutations.setCount</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-redux"><a href="#6-redux" class="headerlink" title="6.redux"></a>6.redux</h3><p>核心概念   store、action、reducer(state,action)、state、dispatch(aciton)、subscribe(()=&gt;{})、getState()</p>
+<p>相关资料：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html">redux 阮一峰</a></p>
+<h3 id="7-react-redux-专门用于react框架项目中"><a href="#7-react-redux-专门用于react框架项目中" class="headerlink" title="7.react-redux(专门用于react框架项目中)"></a>7.react-redux(专门用于react框架项目中)</h3><p>可以使用create-react-app工具创建一个react项目，命令行运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-react-app 项目名</span><br></pre></td></tr></table></figure>
+
+<p>目录结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">	actions</span><br><span class="line"> 		count,js</span><br><span class="line"> 	pages</span><br><span class="line"> 		about.js</span><br><span class="line"> 		count.js</span><br><span class="line"> 	reducers</span><br><span class="line"> 		count.js</span><br><span class="line"> 	store</span><br><span class="line"> 		index.js</span><br><span class="line"> 	App.js</span><br><span class="line"> 	index.js</span><br></pre></td></tr></table></figure>
+
+<p>react入口文件 src/index.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import React from &#x27;react&#x27;;</span><br><span class="line">import ReactDOM from &#x27;react-dom/client&#x27;;</span><br><span class="line">import App from &#x27;./App&#x27;;</span><br><span class="line">import store from &#x27;./store&#x27;;</span><br><span class="line">import &#123; Provider &#125; from &#x27;react-redux&#x27;;</span><br><span class="line">const root = ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;));</span><br><span class="line">root.render(</span><br><span class="line">  &lt;React.StrictMode&gt;</span><br><span class="line">    &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">      &lt;App /&gt;</span><br><span class="line">    &lt;/Provider&gt;</span><br><span class="line">  &lt;/React.StrictMode&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>store src/store/index.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createStore, applyMiddleware &#125; from &#x27;redux&#x27;;</span><br><span class="line">import reducers from &#x27;../reducers/count&#x27;;</span><br><span class="line">import thunk from &#x27;redux-thunk&#x27;;</span><br><span class="line">const store = createStore(reducers, applyMiddleware(thunk));</span><br><span class="line">export default store;</span><br></pre></td></tr></table></figure>
+
+<p>reducers src/reducers/count.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">const reducer = (state = &#123; count: 0, count1: 0, list: [] &#125;, action) =&gt; &#123;</span><br><span class="line">	switch (action.type) &#123;</span><br><span class="line">		case &#x27;INCREASE&#x27;:</span><br><span class="line">			return &#123; ...state, count: state.count + 1 &#125;;</span><br><span class="line">		case &#x27;DECREASE&#x27;:</span><br><span class="line">			return &#123; ...state, count1: state.count1 - 1 &#125;;</span><br><span class="line">		case &#x27;GETlISTS&#x27;://payload 有效载荷</span><br><span class="line">			return &#123; ...state, list: action.payload &#125;;</span><br><span class="line">		default:</span><br><span class="line">			return state;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">export default reducer;</span><br><span class="line">actions src/actions/count.js</span><br><span class="line">export const increase = () =&gt; &#123;</span><br><span class="line">	return &#123;</span><br><span class="line">		type: &#x27;INCREASE&#x27;,</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export const decrease = () =&gt; &#123;</span><br><span class="line">	return &#123;</span><br><span class="line">		type: &#x27;DECREASE&#x27;,</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export const getListData = (payload) =&gt; &#123;</span><br><span class="line">	return &#123;  //接收dispatch(getListData(data))的数据</span><br><span class="line">		type: &#x27;GETlISTS&#x27;,</span><br><span class="line">		payload,</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line">//redux不支持异步更新，如果需要异步更新，则需要第三方插件的支持</span><br><span class="line">export function fetchList() &#123;</span><br><span class="line">    //返回的是一个函数，他是一个高阶函数 dispatch就是store里的dispatch函数</span><br><span class="line">    //返回的函数是一个函数，这个参数是dispatch，而dispatch它的类型是函数</span><br><span class="line">	return (dispatch) =&gt; &#123;//把这个函数作为参数再进行调用</span><br><span class="line">		let url = &#x27;https://jsonplaceholder.typicode.com/posts&#x27;;</span><br><span class="line">		fetch(url)</span><br><span class="line">			.then((res) =&gt; &#123;</span><br><span class="line">				return res.json();</span><br><span class="line">			&#125;)</span><br><span class="line">			.then((data) =&gt; &#123;</span><br><span class="line">				dispatch(getListData(data));</span><br><span class="line">			&#125;);</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>App.js src/app.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &quot;react&quot;;</span><br><span class="line">import Count from &quot;./pages/count&quot;;</span><br><span class="line">import About from &#x27;./pages/about&#x27;;</span><br><span class="line">import &#123; NavLink, Route, BrowserRouter as Router, Routes &#125; from &quot;react-router-dom&quot;;</span><br><span class="line">class App extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;Router&gt;</span><br><span class="line">                &lt;div&gt;</span><br><span class="line">                    &lt;ul&gt;</span><br><span class="line">                        &lt;li&gt;</span><br><span class="line">                            &lt;NavLink to=&quot;/about&quot;&gt;关于我们&lt;/NavLink&gt;</span><br><span class="line">                        &lt;/li&gt;</span><br><span class="line">                        &lt;li&gt;</span><br><span class="line">                            &lt;NavLink to=&quot;/count&quot;&gt;统计页面&lt;/NavLink&gt;</span><br><span class="line">                        &lt;/li&gt;</span><br><span class="line">                    &lt;/ul&gt;</span><br><span class="line">                    &lt;Routes&gt;</span><br><span class="line">                        &lt;Route path=&quot;/&quot; element=&#123;&lt;About /&gt;&#125; /&gt;</span><br><span class="line">                        &lt;Route path=&quot;/about&quot; element=&#123;&lt;About /&gt;&#125; /&gt;</span><br><span class="line">                        &lt;Route path=&quot;/count&quot; element=&#123;&lt;Count /&gt;&#125; /&gt;</span><br><span class="line">                    &lt;/Routes&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            &lt;/Router&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default App;</span><br></pre></td></tr></table></figure>
+
+<p>src/pages/Count.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &#x27;react&#x27;;</span><br><span class="line">import &#123; connect &#125; from &#x27;react-redux&#x27;;</span><br><span class="line">import &#123; increase, decrease, fetchList &#125; from &#x27;../actions/count&#x27;;</span><br><span class="line">class Count extends Component &#123;</span><br><span class="line">	render() &#123;</span><br><span class="line">		const &#123; count, count1, list, loading, increase, decrease, fetchList &#125; = this.props;</span><br><span class="line">		return (</span><br><span class="line">			&lt;div&gt;</span><br><span class="line">				count:&#123;count&#125; &lt;br /&gt;</span><br><span class="line">				count1:&#123;count1&#125; &lt;br /&gt;</span><br><span class="line">				&#123;loading </span><br><span class="line">				? &lt;div&gt;数据请求中...&lt;/div&gt; </span><br><span class="line">				: &lt;div&gt;list:&#123;JSON.stringify(list)&#125;&lt;/div&gt;&#125;</span><br><span class="line">				&lt;button onClick=&#123;increase&#125;&gt;递增&lt;/button&gt;</span><br><span class="line">				&lt;button onClick=&#123;decrease&#125;&gt;递减&lt;/button&gt;</span><br><span class="line">				&lt;button onClick=&#123;fetchList&#125;&gt;获取数据&lt;/button&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">const mapStateToProps = (state) =&gt; &#123;</span><br><span class="line">	return &#123;</span><br><span class="line">		count: state.count,</span><br><span class="line">		count1: state.count1,</span><br><span class="line">		list: state.list,</span><br><span class="line">		loading: state.loading,</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line">const mapDispatchToProps = &#123; increase, decrease, fetchList &#125;;</span><br><span class="line">const CountContainer = connect(mapStateToProps, mapDispatchToProps)(Count);</span><br><span class="line">export default CountContainer;</span><br></pre></td></tr></table></figure>
+
+<p>src/pages/about.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &quot;react&quot;;</span><br><span class="line">import &#123; connect &#125; from &quot;react-redux&quot;;</span><br><span class="line">class About extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        const &#123; count &#125; = this.props;</span><br><span class="line">        return &lt;div&gt;About Count:&#123;count&#125;&lt;/div&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">const mapStateToProps = (state) =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        count: state.count,</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">const AboutContainer = connect(mapStateToProps)(About);</span><br><span class="line">export default AboutContainer;</span><br></pre></td></tr></table></figure>
+
+<p>注：1.使用react-redux也要用到redux，在项目根目录执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i react-redux redux redux-thunk -S</span><br></pre></td></tr></table></figure>
+
+<p>2.redux只支持同步更新不支持异步更新，支持异步需要使用redux-thunk或者redux-saga中间件</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/31/%E5%B7%A5%E4%BD%9C%E7%BD%91%E7%AB%99%E6%94%B6%E8%97%8F/" rel="prev" title="工作网站收藏">
+                  <i class="fa fa-chevron-left"></i> 工作网站收藏
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NTg4OS8zMjM1Mw=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">狂小汪</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

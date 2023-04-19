@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kuangxiaowang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null,"Available values":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一 npm 常用操作1.查看npm版本1npm -v  2.查看当前电脑 IP 信息1ipconfig  3.npm全局安装12-g：--global 的简写  全局安装npm install jquery -g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NPM指令">
+<meta property="og:url" content="https://kuangxiaowang.github.io/2020/11/15/NPM%20%E6%8C%87%E4%BB%A4/index.html">
+<meta property="og:site_name" content="狂小汪的博客">
+<meta property="og:description" content="一 npm 常用操作1.查看npm版本1npm -v  2.查看当前电脑 IP 信息1ipconfig  3.npm全局安装12-g：--global 的简写  全局安装npm install jquery -g">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-15T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-31T06:30:03.221Z">
+<meta property="article:author" content="狂小汪">
+<meta property="article:tag" content="指令">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://kuangxiaowang.github.io/2020/11/15/NPM%20%E6%8C%87%E4%BB%A4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kuangxiaowang.github.io/2020/11/15/NPM%20%E6%8C%87%E4%BB%A4/","path":"2020/11/15/NPM 指令/","title":"NPM指令"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>NPM指令 | 狂小汪的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">狂小汪的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80-npm-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">一 npm 常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%9F%A5%E7%9C%8Bnpm%E7%89%88%E6%9C%AC"><span class="nav-number">1.1.</span> <span class="nav-text">1.查看npm版本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%94%B5%E8%84%91-IP-%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">2.查看当前电脑 IP 信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-npm%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.</span> <span class="nav-text">3.npm全局安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-npm%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85%E5%8D%B8%E8%BD%BD"><span class="nav-number">1.4.</span> <span class="nav-text">4.npm全局安装卸载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-npm%E8%BF%90%E8%A1%8C"><span class="nav-number">1.5.</span> <span class="nav-text">5.npm运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-npm%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85-S"><span class="nav-number">1.6.</span> <span class="nav-text">6.npm本地安装-S</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-npm%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85-D"><span class="nav-number">1.7.</span> <span class="nav-text">7.npm本地安装-D</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-npmrc%E6%96%87%E4%BB%B6"><span class="nav-number">1.8.</span> <span class="nav-text">7.   .npmrc文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-nrm"><span class="nav-number">2.</span> <span class="nav-text">二 nrm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-nrm%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">1.nrm安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-nrm%E7%89%88%E6%9C%AC"><span class="nav-number">2.2.</span> <span class="nav-text">2.nrm版本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-nrm%E6%A3%80%E6%B5%8B%E9%95%9C%E5%83%8F%E6%BA%90%E5%9C%B0%E5%9D%80"><span class="nav-number">2.3.</span> <span class="nav-text">3.nrm检测镜像源地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-nrm%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F%E6%BA%90%E5%9C%B0%E5%9D%80"><span class="nav-number">2.4.</span> <span class="nav-text">4. nrm查看镜像源地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-nrm%E5%88%87%E6%8D%A2%E9%95%9C%E5%83%8F%E6%BA%90"><span class="nav-number">2.5.</span> <span class="nav-text">5.nrm切换镜像源</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89-vue%E8%84%9A%E6%89%8B%E6%9E%B6"><span class="nav-number">3.</span> <span class="nav-text">三 vue脚手架</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85vue%E8%84%9A%E6%89%8B%E6%9E%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1.全局安装vue脚手架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%9F%A5%E7%9C%8Bvue%E7%89%88%E6%9C%AC"><span class="nav-number">3.2.</span> <span class="nav-text">2.查看vue版本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85yarn%EF%BC%88vue%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%8F%AF%E8%83%BD%E9%9C%80%E8%A6%81yarn%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">3.全局安装yarn（vue创建项目可能需要yarn工具下载）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%88%9B%E5%BB%BAvue%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.4.</span> <span class="nav-text">4.创建vue项目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.5.</span> <span class="nav-text">5.进入项目文件夹</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.6.</span> <span class="nav-text">6.启动项目</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B-%E4%B8%8B%E8%BD%BD%E8%B7%AF%E7%94%B1"><span class="nav-number">4.</span> <span class="nav-text">四 下载路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94-vueX"><span class="nav-number">5.</span> <span class="nav-text">五 vueX</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-vueX%E4%B8%8B%E8%BD%BD"><span class="nav-number">5.1.</span> <span class="nav-text">1.vueX下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%8C%81%E4%B9%85%E5%8C%96%E6%8F%92%E4%BB%B6%EF%BC%88%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%EF%BC%89"><span class="nav-number">5.2.</span> <span class="nav-text">2.持久化插件（本地存储）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD-%E4%B8%8B%E8%BD%BDswiper"><span class="nav-number">6.</span> <span class="nav-text">六 下载swiper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%83-%E4%B8%8B%E8%BD%BDjquery"><span class="nav-number">7.</span> <span class="nav-text">七 下载jquery</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AB-%E4%B8%8B%E8%BD%BDaxios"><span class="nav-number">8.</span> <span class="nav-text">八 下载axios</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%9D-%E4%B8%8B%E8%BD%BDelement-ui"><span class="nav-number">9.</span> <span class="nav-text">九 下载element-ui</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81-Json-server-%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">10.</span> <span class="nav-text">十  Json-server(模拟服务器)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDjson-server"><span class="nav-number">10.1.</span> <span class="nav-text">1.下载json-server</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%90%AF%E5%8A%A8json%E6%96%87%E4%BB%B6"><span class="nav-number">10.2.</span> <span class="nav-text">2.启动json文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E7%BC%96%E8%BE%91%E8%84%9A%E6%9C%AC%E5%88%B0packjson%E6%96%87%E4%BB%B6%E9%87%8C%E9%9D%A2%E5%90%AF%E5%8A%A8json-server"><span class="nav-number">10.3.</span> <span class="nav-text">3.编辑脚本到packjson文件里面启动json-server</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%B8%80-mockjs-%E6%A8%A1%E6%8B%9F%E6%95%B0%E6%8D%AE"><span class="nav-number">11.</span> <span class="nav-text">十一 mockjs  模拟数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C-%E5%88%9B%E5%BB%BApackage-json"><span class="nav-number">12.</span> <span class="nav-text">十二 创建package.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%B8%89-node-dev-%E6%AF%8F%E6%AC%A1%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%EF%BC%8C%E8%87%AA%E5%8A%A8%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">13.</span> <span class="nav-text">十三 node-dev(每次修改文件，自动重启服务器)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDnode-dev"><span class="nav-number">13.1.</span> <span class="nav-text">1. 下载node-dev</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E7%BC%96%E8%BE%91%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4%E5%88%B0packjson%E6%96%87%E4%BB%B6%E9%87%8C%E9%9D%A2"><span class="nav-number">13.2.</span> <span class="nav-text">2. 编辑启动命令到packjson文件里面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">13.3.</span> <span class="nav-text">3.启动服务</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E5%9B%9B-express-nodejs%E6%A1%86%E6%9E%B6"><span class="nav-number">14.</span> <span class="nav-text">十四 express(nodejs框架)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDexpress"><span class="nav-number">14.1.</span> <span class="nav-text">1. 下载express</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E4%B8%8B%E8%BD%BDexpress%E4%B8%AD%E9%97%B4%E4%BB%B6%EF%BC%88%E5%90%91req-body%E6%B7%BB%E5%8A%A0post%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%EF%BC%8C%E6%AF%AB%E6%97%A0%E7%94%A8%E5%A4%84%EF%BC%8C%E7%9B%B4%E6%8E%A5%E8%AE%BE%E7%BD%AEapp-use-express-urlencoded-app-use-express-json-%E8%83%BD%E8%BE%BE%E5%88%B0%E4%B8%80%E6%A0%B7%E6%95%88%E6%9E%9C%EF%BC%8C%E6%B2%A1%E7%94%A8%E4%B8%BA%E5%95%A5%E8%A6%81%E8%AE%B2%EF%BC%9F%EF%BC%89"><span class="nav-number">14.2.</span> <span class="nav-text">2. 下载express中间件（向req.body添加post请求参数，毫无用处，直接设置app.use(express.urlencoded());app.use(express.json());能达到一样效果，没用为啥要讲？）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E4%B8%8B%E8%BD%BDmd5-%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86"><span class="nav-number">14.3.</span> <span class="nav-text">3.  下载md5(密码加密)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-jsonwebtoken-%E6%8F%92%E4%BB%B6-%E7%94%A8%E6%88%B7%E5%87%AD%E8%AF%81token"><span class="nav-number">14.4.</span> <span class="nav-text">4. jsonwebtoken 插件(用户凭证token)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-multer-%E6%8F%92%E4%BB%B6-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="nav-number">14.5.</span> <span class="nav-text">5. multer 插件(上传文件)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%BA%94-express%E8%84%9A%E6%89%8B%E6%9E%B6"><span class="nav-number">15.</span> <span class="nav-text">十五 express脚手架</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDexpress%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">15.1.</span> <span class="nav-text">1.下载express生成器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BAexpress%E8%84%9A%E6%89%8B%E6%9E%B6"><span class="nav-number">15.2.</span> <span class="nav-text">2.创建express脚手架</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E5%85%AD-mongodb-%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">16.</span> <span class="nav-text">十六 mongodb(非关系型数据库)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%B7%BB%E5%8A%A0%E5%85%A8%E5%B1%80%E7%8E%AF%E5%A2%83"><span class="nav-number">16.1.</span> <span class="nav-text">1. 添加全局环境</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%9C%A8C%E7%9B%98%E5%BB%BAdata-db%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">16.2.</span> <span class="nav-text">2. 在C盘建data&#x2F;db文件夹</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%90%AF%E5%8A%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">16.3.</span> <span class="nav-text">3. 启动数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">16.4.</span> <span class="nav-text">3. 查看数据库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%B8%83-mongoose-%E5%9C%A8nodejs%E9%87%8C%E6%93%8D%E4%BD%9Cmongodb%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">17.</span> <span class="nav-text">十七 mongoose(在nodejs里操作mongodb数据库)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E5%85%AB-%E4%B8%8B%E8%BD%BD%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">18.</span> <span class="nav-text">十八 下载富文本编辑器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%B9%9D-webpack-%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7-%E6%89%93%E5%8C%85js-%E6%89%93%E5%8C%85html-%E6%89%93%E5%8C%85css-%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87"><span class="nav-number">19.</span> <span class="nav-text">十九 webpack(打包工具 ,打包js,打包html,打包css,打包压缩图片)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDwebpack"><span class="nav-number">19.1.</span> <span class="nav-text">1. 下载webpack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85webpack"><span class="nav-number">19.2.</span> <span class="nav-text">2. 本地安装webpack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%89%93%E5%8C%85css-%E5%9C%A8js%E4%B8%ADrequire-css%E6%96%87%E4%BB%B6"><span class="nav-number">19.3.</span> <span class="nav-text">2.  打包css(在js中require css文件)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E6%89%93%E5%8C%85scss-%E5%9C%A8js%E4%B8%ADrequire-scss%E6%96%87%E4%BB%B6"><span class="nav-number">19.4.</span> <span class="nav-text">3. 打包scss(在js中require scss文件)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-HtmlWebpackPlugin-%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90HTML%E6%96%87%E4%BB%B6index-html"><span class="nav-number">19.5.</span> <span class="nav-text">4.  HtmlWebpackPlugin(自动生成HTML文件index.html)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-webpack-dev-server-webpack%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">19.6.</span> <span class="nav-text">5. webpack-dev-server(webpack配置服务器)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81-%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">20.</span> <span class="nav-text">二十 快捷键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E4%B8%80-react%E6%8C%87%E4%BB%A4"><span class="nav-number">21.</span> <span class="nav-text">二十一  react指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BAreact%E9%A1%B9%E7%9B%AE-%E8%84%9A%E6%89%8B%E6%9E%B6"><span class="nav-number">21.1.</span> <span class="nav-text">1. 创建react项目(脚手架)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%9C%A8react%E8%84%9A%E6%89%8B%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8scss"><span class="nav-number">21.2.</span> <span class="nav-text">2. 在react脚手架中使用scss</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%9C%A8react%E8%84%9A%E6%89%8B%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%B7%AF%E7%94%B1"><span class="nav-number">21.3.</span> <span class="nav-text">3. 在react脚手架中使用路由</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%9C%A8react%E8%84%9A%E6%89%8B%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8redux"><span class="nav-number">21.4.</span> <span class="nav-text">4. 在react脚手架中使用redux</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E5%9C%A8react%E8%84%9A%E6%89%8B%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8react-redux"><span class="nav-number">21.5.</span> <span class="nav-text">5.  在react脚手架中使用react-redux</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E5%9C%A8react%E8%84%9A%E6%89%8B%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8Ant-Design-UI%E6%A1%86%E6%9E%B6"><span class="nav-number">21.6.</span> <span class="nav-text">6. 在react脚手架中使用Ant Design(UI框架)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E4%BA%8C-nuxt-vue%E7%9A%84%E4%B8%80%E7%A7%8D%E8%84%9A%E6%89%8B%E6%9E%B6"><span class="nav-number">22.</span> <span class="nav-text">二十二 nuxt(vue的一种脚手架)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BAnuxt%E9%A1%B9%E7%9B%AE"><span class="nav-number">22.1.</span> <span class="nav-text">1. 创建nuxt项目</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E4%B8%89-anywhere"><span class="nav-number">23.</span> <span class="nav-text">二十三 anywhere</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E5%9B%9B-npm%E6%9B%B4%E6%94%B9%E4%BB%93%E5%BA%93%E6%BA%90"><span class="nav-number">24.</span> <span class="nav-text">二十四 npm更改仓库源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E4%BA%94-%E5%B7%A5%E4%BD%9C"><span class="nav-number">25.</span> <span class="nav-text">二十五 工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E5%85%AD-nvm"><span class="nav-number">26.</span> <span class="nav-text">二十六 nvm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E4%B8%83-jsdoc"><span class="nav-number">27.</span> <span class="nav-text">二十七 jsdoc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E5%85%AB-md%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90html"><span class="nav-number">28.</span> <span class="nav-text">二十八 md文档生成html</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E4%B9%9D-git%E9%85%8D%E5%88%AB%E5%90%8D%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF"><span class="nav-number">29.</span> <span class="nav-text">二十九 git配别名查看分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%8D%81-thinkjs"><span class="nav-number">30.</span> <span class="nav-text">三十 thinkjs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%8D%81%E4%B8%80-hexo"><span class="nav-number">31.</span> <span class="nav-text">三十一 hexo</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="狂小汪"
+      src="https://vcdn.pharmcube.com/100.jpg">
+  <p class="site-author-name" itemprop="name">狂小汪</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kuangxiaowang.github.io/2020/11/15/NPM%20%E6%8C%87%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://vcdn.pharmcube.com/100.jpg">
+      <meta itemprop="name" content="狂小汪">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="狂小汪的博客">
+      <meta itemprop="description" content="">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="NPM指令 | 狂小汪的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NPM指令
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-15 21:00:00" itemprop="dateCreated datePublished" datetime="2020-11-15T21:00:00+08:00">2020-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-31 14:30:03" itemprop="dateModified" datetime="2023-01-31T14:30:03+08:00">2023-01-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8C%87%E4%BB%A4/" itemprop="url" rel="index"><span itemprop="name">指令</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h4 id="一-npm-常用操作"><a href="#一-npm-常用操作" class="headerlink" title="一 npm 常用操作"></a>一 npm 常用操作</h4><h5 id="1-查看npm版本"><a href="#1-查看npm版本" class="headerlink" title="1.查看npm版本"></a>1.查看npm版本</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-查看当前电脑-IP-信息"><a href="#2-查看当前电脑-IP-信息" class="headerlink" title="2.查看当前电脑 IP 信息"></a>2.查看当前电脑 IP 信息</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-npm全局安装"><a href="#3-npm全局安装" class="headerlink" title="3.npm全局安装"></a>3.npm全局安装</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-g：--global 的简写  全局安装</span><br><span class="line">npm install jquery -g</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h5 id="4-npm全局安装卸载"><a href="#4-npm全局安装卸载" class="headerlink" title="4.npm全局安装卸载"></a>4.npm全局安装卸载</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall jquery -g</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-npm运行"><a href="#5-npm运行" class="headerlink" title="5.npm运行"></a>5.npm运行</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start:npm run start 的简写</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-npm本地安装-S"><a href="#6-npm本地安装-S" class="headerlink" title="6.npm本地安装-S"></a>6.npm本地安装-S</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i xx -S：npm install xx --save 的简写</span><br><span class="line">项目（运行时、发布到生产环境时）依赖；例：antd , element , react...</span><br><span class="line">安装包信息会写入 dependencies 中</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-npm本地安装-D"><a href="#7-npm本地安装-D" class="headerlink" title="7.npm本地安装-D"></a>7.npm本地安装-D</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i xx -D：npm install xx --save-dev的简写</span><br><span class="line">工程构建（开发时、“打包”时）依赖 ；例：xxx-cli , less-loader , babel-loader...</span><br><span class="line">安装包信息写入 devDependencies 中</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-npmrc文件"><a href="#7-npmrc文件" class="headerlink" title="7.   .npmrc文件"></a>7.   .npmrc文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config edit</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="二-nrm"><a href="#二-nrm" class="headerlink" title="二 nrm"></a>二 nrm</h4><h5 id="1-nrm安装"><a href="#1-nrm安装" class="headerlink" title="1.nrm安装"></a>1.nrm安装</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表示安装一个全局 nrm</span><br><span class="line">npm i nrm -g</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-nrm版本"><a href="#2-nrm版本" class="headerlink" title="2.nrm版本"></a>2.nrm版本</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nrm --version</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-nrm检测镜像源地址"><a href="#3-nrm检测镜像源地址" class="headerlink" title="3.nrm检测镜像源地址"></a>3.nrm检测镜像源地址</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表示查看 nrm 镜像源地址网速</span><br><span class="line">nrm test</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-nrm查看镜像源地址"><a href="#4-nrm查看镜像源地址" class="headerlink" title="4. nrm查看镜像源地址"></a>4. nrm查看镜像源地址</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nrm ls</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-nrm切换镜像源"><a href="#5-nrm切换镜像源" class="headerlink" title="5.nrm切换镜像源"></a>5.nrm切换镜像源</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表示切换到 taobao 镜像源地址</span><br><span class="line">nrm use taobao</span><br></pre></td></tr></table></figure>
+
+<h4 id="三-vue脚手架"><a href="#三-vue脚手架" class="headerlink" title="三 vue脚手架"></a>三 vue脚手架</h4><h5 id="1-全局安装vue脚手架"><a href="#1-全局安装vue脚手架" class="headerlink" title="1.全局安装vue脚手架"></a>1.全局安装vue脚手架</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i @vue/cli -g</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-查看vue版本"><a href="#2-查看vue版本" class="headerlink" title="2.查看vue版本"></a>2.查看vue版本</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue --version</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-全局安装yarn（vue创建项目可能需要yarn工具下载）"><a href="#3-全局安装yarn（vue创建项目可能需要yarn工具下载）" class="headerlink" title="3.全局安装yarn（vue创建项目可能需要yarn工具下载）"></a>3.全局安装yarn（vue创建项目可能需要yarn工具下载）</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i yarn -g</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-创建vue项目"><a href="#4-创建vue项目" class="headerlink" title="4.创建vue项目"></a>4.创建vue项目</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vue create 项目名称</span><br><span class="line">第一步 Manually select features 手动选择功能</span><br><span class="line">第二步 Linter / Formatter 勾掉</span><br><span class="line">      Babel,Choose Vue version 保留</span><br><span class="line">      Router,Vuex, CSS Pre-processors（Sass/SCSS(with node-sass)） 按需选择</span><br><span class="line">第三步 选择 2.x</span><br><span class="line">第四步 Use history mode for router? 是使用history模式/否使用哈希模式 Y</span><br><span class="line">第五步 选择 In package.json</span><br><span class="line">第六步 Save this as a preset for future projects? 是否保存设置 N</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-进入项目文件夹"><a href="#5-进入项目文件夹" class="headerlink" title="5.进入项目文件夹"></a>5.进入项目文件夹</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd 文件名</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-启动项目"><a href="#6-启动项目" class="headerlink" title="6.启动项目"></a>6.启动项目</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">默认 npm run serve</span><br></pre></td></tr></table></figure>
+
+<h4 id="四-下载路由"><a href="#四-下载路由" class="headerlink" title="四 下载路由"></a>四 下载路由</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vue-router -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="五-vueX"><a href="#五-vueX" class="headerlink" title="五 vueX"></a>五 vueX</h4><h5 id="1-vueX下载"><a href="#1-vueX下载" class="headerlink" title="1.vueX下载"></a>1.vueX下载</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vuex -S</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-持久化插件（本地存储）"><a href="#2-持久化插件（本地存储）" class="headerlink" title="2.持久化插件（本地存储）"></a>2.持久化插件（本地存储）</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vuex-persistedstate -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="六-下载swiper"><a href="#六-下载swiper" class="headerlink" title="六 下载swiper"></a>六 下载swiper</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i swiper@5.4.5 -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="七-下载jquery"><a href="#七-下载jquery" class="headerlink" title="七 下载jquery"></a>七 下载jquery</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i jquery -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="八-下载axios"><a href="#八-下载axios" class="headerlink" title="八 下载axios"></a>八 下载axios</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i axios -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="九-下载element-ui"><a href="#九-下载element-ui" class="headerlink" title="九 下载element-ui"></a>九 下载element-ui</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i element-ui -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="十-Json-server-模拟服务器"><a href="#十-Json-server-模拟服务器" class="headerlink" title="十  Json-server(模拟服务器)"></a>十  Json-server(模拟服务器)</h4><h5 id="1-下载json-server"><a href="#1-下载json-server" class="headerlink" title="1.下载json-server"></a>1.下载json-server</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">全局安装json-server</span><br><span class="line">npm i json-server -g </span><br></pre></td></tr></table></figure>
+
+<h5 id="2-启动json文件"><a href="#2-启动json文件" class="headerlink" title="2.启动json文件"></a>2.启动json文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">进入json所在的文件夹运行cmd</span><br><span class="line">json-server ./db.json</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-编辑脚本到packjson文件里面启动json-server"><a href="#3-编辑脚本到packjson文件里面启动json-server" class="headerlink" title="3.编辑脚本到packjson文件里面启动json-server"></a>3.编辑脚本到packjson文件里面启动json-server</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scripts</span><br><span class="line">	dev : json-server  文件地址   --port 3001   --host 192.168.8.74  --watch(json修改的时候自动重启)</span><br></pre></td></tr></table></figure>
+
+<h4 id="十一-mockjs-模拟数据"><a href="#十一-mockjs-模拟数据" class="headerlink" title="十一 mockjs  模拟数据"></a>十一 mockjs  模拟数据</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下载mockjs</span><br><span class="line">npm i mockjs -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="十二-创建package-json"><a href="#十二-创建package-json" class="headerlink" title="十二 创建package.json"></a>十二 创建package.json</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">创建package.json</span><br><span class="line">npm init -y  </span><br></pre></td></tr></table></figure>
+
+<h4 id="十三-node-dev-每次修改文件，自动重启服务器"><a href="#十三-node-dev-每次修改文件，自动重启服务器" class="headerlink" title="十三 node-dev(每次修改文件，自动重启服务器)"></a>十三 node-dev(每次修改文件，自动重启服务器)</h4><h5 id="1-下载node-dev"><a href="#1-下载node-dev" class="headerlink" title="1. 下载node-dev"></a>1. 下载node-dev</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i node-dev -S</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-编辑启动命令到packjson文件里面"><a href="#2-编辑启动命令到packjson文件里面" class="headerlink" title="2. 编辑启动命令到packjson文件里面"></a>2. 编辑启动命令到packjson文件里面</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;:&#123;</span><br><span class="line">	&quot;dev&quot; : &quot;node-dev server(服务文件名.js后缀可省略)&quot;(原来是&quot;node server&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-启动服务"><a href="#3-启动服务" class="headerlink" title="3.启动服务"></a>3.启动服务</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+<h4 id="十四-express-nodejs框架"><a href="#十四-express-nodejs框架" class="headerlink" title="十四 express(nodejs框架)"></a>十四 express(nodejs框架)</h4><h5 id="1-下载express"><a href="#1-下载express" class="headerlink" title="1. 下载express"></a>1. 下载express</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i express -S</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-下载express中间件（向req-body添加post请求参数，毫无用处，直接设置app-use-express-urlencoded-app-use-express-json-能达到一样效果，没用为啥要讲？）"><a href="#2-下载express中间件（向req-body添加post请求参数，毫无用处，直接设置app-use-express-urlencoded-app-use-express-json-能达到一样效果，没用为啥要讲？）" class="headerlink" title="2. 下载express中间件（向req.body添加post请求参数，毫无用处，直接设置app.use(express.urlencoded());app.use(express.json());能达到一样效果，没用为啥要讲？）"></a>2. 下载express中间件（向req.body添加post请求参数，毫无用处，直接设置app.use(express.urlencoded());app.use(express.json());能达到一样效果，没用为啥要讲？）</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i body-parser -S</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-下载md5-密码加密"><a href="#3-下载md5-密码加密" class="headerlink" title="3.  下载md5(密码加密)"></a>3.  下载md5(密码加密)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i md5 -S</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-jsonwebtoken-插件-用户凭证token"><a href="#4-jsonwebtoken-插件-用户凭证token" class="headerlink" title="4. jsonwebtoken 插件(用户凭证token)"></a>4. jsonwebtoken 插件(用户凭证token)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下载jsonwebtoken 插件</span><br><span class="line">npm i jsonwebtoken -S </span><br></pre></td></tr></table></figure>
+
+<h5 id="5-multer-插件-上传文件"><a href="#5-multer-插件-上传文件" class="headerlink" title="5. multer 插件(上传文件)"></a>5. multer 插件(上传文件)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i multer -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="十五-express脚手架"><a href="#十五-express脚手架" class="headerlink" title="十五 express脚手架"></a>十五 express脚手架</h4><h5 id="1-下载express生成器"><a href="#1-下载express生成器" class="headerlink" title="1.下载express生成器"></a>1.下载express生成器</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">全局安装express生成器</span><br><span class="line">npm i express-generator -g</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-创建express脚手架"><a href="#2-创建express脚手架" class="headerlink" title="2.创建express脚手架"></a>2.创建express脚手架</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">express 项目名</span><br></pre></td></tr></table></figure>
+
+<h4 id="十六-mongodb-非关系型数据库"><a href="#十六-mongodb-非关系型数据库" class="headerlink" title="十六 mongodb(非关系型数据库)"></a>十六 mongodb(非关系型数据库)</h4><h5 id="1-添加全局环境"><a href="#1-添加全局环境" class="headerlink" title="1. 添加全局环境"></a>1. 添加全局环境</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把C:\Program Files\MongoDB\Server\3.0\bin添加到环境变量的path中</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-在C盘建data-db文件夹"><a href="#2-在C盘建data-db文件夹" class="headerlink" title="2. 在C盘建data/db文件夹"></a>2. 在C盘建data/db文件夹</h5><h5 id="3-启动数据库"><a href="#3-启动数据库" class="headerlink" title="3. 启动数据库"></a>3. 启动数据库</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod(出现27017说明成功)</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-查看数据库"><a href="#3-查看数据库" class="headerlink" title="3. 查看数据库"></a>3. 查看数据库</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mongo(操作命令详见菜鸟MongoDB)</span><br><span class="line">1 show dbs 查看数据库</span><br><span class="line">2 use 数据库名 切换数据库，没有就创建</span><br><span class="line">3 db 进入数据库</span><br><span class="line">4 show collections 查看数据表</span><br><span class="line">5 db.数据表名字.drop() 删除数据表</span><br><span class="line">6 db.数据表名字.find() 查看数据表内容</span><br><span class="line">7 db.数据表名字.remove(&#123;条件&#125;) 删除数据表指定内容</span><br></pre></td></tr></table></figure>
+
+<h4 id="十七-mongoose-在nodejs里操作mongodb数据库"><a href="#十七-mongoose-在nodejs里操作mongodb数据库" class="headerlink" title="十七 mongoose(在nodejs里操作mongodb数据库)"></a>十七 mongoose(在nodejs里操作mongodb数据库)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下载mongoose</span><br><span class="line">npm i mongoose -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="十八-下载富文本编辑器"><a href="#十八-下载富文本编辑器" class="headerlink" title="十八 下载富文本编辑器"></a>十八 下载富文本编辑器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i wangeditor -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="十九-webpack-打包工具-打包js-打包html-打包css-打包压缩图片"><a href="#十九-webpack-打包工具-打包js-打包html-打包css-打包压缩图片" class="headerlink" title="十九 webpack(打包工具 ,打包js,打包html,打包css,打包压缩图片)"></a>十九 webpack(打包工具 ,打包js,打包html,打包css,打包压缩图片)</h4><h5 id="1-下载webpack"><a href="#1-下载webpack" class="headerlink" title="1. 下载webpack"></a>1. 下载webpack</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">全局安装webpack</span><br><span class="line">npm i webpack@4.32.2 webpack-cli@3.3.2 -g</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-本地安装webpack"><a href="#2-本地安装webpack" class="headerlink" title="2. 本地安装webpack"></a>2. 本地安装webpack</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">本地安装webpack</span><br><span class="line">npm i webpack@4.32.2 webpack-cli@3.3.2 -D</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-打包css-在js中require-css文件"><a href="#2-打包css-在js中require-css文件" class="headerlink" title="2.  打包css(在js中require css文件)"></a>2.  打包css(在js中require css文件)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i style-loader css-loader -D</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-打包scss-在js中require-scss文件"><a href="#3-打包scss-在js中require-scss文件" class="headerlink" title="3. 打包scss(在js中require scss文件)"></a>3. 打包scss(在js中require scss文件)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i sass-loader node-sass -D</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-HtmlWebpackPlugin-自动生成HTML文件index-html"><a href="#4-HtmlWebpackPlugin-自动生成HTML文件index-html" class="headerlink" title="4.  HtmlWebpackPlugin(自动生成HTML文件index.html)"></a>4.  HtmlWebpackPlugin(自动生成HTML文件index.html)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev html-webpack-plugin</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-webpack-dev-server-webpack配置服务器"><a href="#5-webpack-dev-server-webpack配置服务器" class="headerlink" title="5. webpack-dev-server(webpack配置服务器)"></a>5. webpack-dev-server(webpack配置服务器)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack-dev-server -D</span><br></pre></td></tr></table></figure>
+
+<h4 id="二十-快捷键"><a href="#二十-快捷键" class="headerlink" title="二十 快捷键"></a>二十 快捷键</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vbc+tab键   --Vue快捷键</span><br><span class="line">rcc+tab键   --React快捷键</span><br></pre></td></tr></table></figure>
+
+<h4 id="二十一-react指令"><a href="#二十一-react指令" class="headerlink" title="二十一  react指令"></a>二十一  react指令</h4><h5 id="1-创建react项目-脚手架"><a href="#1-创建react项目-脚手架" class="headerlink" title="1. 创建react项目(脚手架)"></a>1. 创建react项目(脚手架)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">进入要创建项目的文件夹，执行</span><br><span class="line">npx create-react-app 项目名</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-在react脚手架中使用scss"><a href="#2-在react脚手架中使用scss" class="headerlink" title="2. 在react脚手架中使用scss"></a>2. 在react脚手架中使用scss</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i node-sass -S</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-在react脚手架中使用路由"><a href="#3-在react脚手架中使用路由" class="headerlink" title="3. 在react脚手架中使用路由"></a>3. 在react脚手架中使用路由</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i react-router-dom -S</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-在react脚手架中使用redux"><a href="#4-在react脚手架中使用redux" class="headerlink" title="4. 在react脚手架中使用redux"></a>4. 在react脚手架中使用redux</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">下载redux</span><br><span class="line">npm  i redux -S</span><br><span class="line">使用redux中间件thunk(可以执行异步请求)</span><br><span class="line">npm i redux-thunk -S</span><br><span class="line">使用redux中间件logger(可以打印日志)</span><br><span class="line">npm i redux-logger -S</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-在react脚手架中使用react-redux"><a href="#5-在react脚手架中使用react-redux" class="headerlink" title="5.  在react脚手架中使用react-redux"></a>5.  在react脚手架中使用react-redux</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">下载redux</span><br><span class="line">npm  i redux -S</span><br><span class="line">下载react-redux</span><br><span class="line">npm i react-redux -S</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-在react脚手架中使用Ant-Design-UI框架"><a href="#6-在react脚手架中使用Ant-Design-UI框架" class="headerlink" title="6. 在react脚手架中使用Ant Design(UI框架)"></a>6. 在react脚手架中使用Ant Design(UI框架)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下载Ant Design</span><br><span class="line">npm i antd -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="二十二-nuxt-vue的一种脚手架"><a href="#二十二-nuxt-vue的一种脚手架" class="headerlink" title="二十二 nuxt(vue的一种脚手架)"></a>二十二 nuxt(vue的一种脚手架)</h4><h5 id="1-创建nuxt项目"><a href="#1-创建nuxt项目" class="headerlink" title="1. 创建nuxt项目"></a>1. 创建nuxt项目</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-nuxt-app 项目名</span><br></pre></td></tr></table></figure>
+
+<h4 id="二十三-anywhere"><a href="#二十三-anywhere" class="headerlink" title="二十三 anywhere"></a>二十三 anywhere</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">下载anywhere</span><br><span class="line">npm i anywhere -g</span><br><span class="line">npm i anywhere</span><br><span class="line">启动anywhere</span><br><span class="line">anywhere</span><br></pre></td></tr></table></figure>
+
+<h4 id="二十四-npm更改仓库源"><a href="#二十四-npm更改仓库源" class="headerlink" title="二十四 npm更改仓库源"></a>二十四 npm更改仓库源</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">云漾私服npm地址</span><br><span class="line">npm config set registry http://10.0.60.5:8081/repository/npm-group/ 废弃</span><br><span class="line">npm config set registry http://maven.00bang.cn:8081/repository/npm-group/</span><br><span class="line">改为淘宝镜像</span><br><span class="line">npm config set registry http://registry.npm.taobao.org/</span><br><span class="line">改为npm官方地址</span><br><span class="line">npm config set registry http://registry.npmjs.org</span><br></pre></td></tr></table></figure>
+
+<h4 id="二十五-工作"><a href="#二十五-工作" class="headerlink" title="二十五 工作"></a>二十五 工作</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">切换开发分支</span><br><span class="line">git checkout master-branch-develop</span><br></pre></td></tr></table></figure>
+
+<h4 id="二十六-nvm"><a href="#二十六-nvm" class="headerlink" title="二十六 nvm"></a>二十六 nvm</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nvm 安装地址https://github.com/coreybutler/nvm-windows/releases/tag/1.1.7</span><br><span class="line">(先卸载node，第一个目录为nvm安装位置，第二个为node安装位置)</span><br><span class="line">nvm install 13.0.1    安装node.js 13.0.1版本 会安装对应版本的npm</span><br><span class="line">nvm use 13.0.1        使用node.js 13.0.1版本</span><br><span class="line">nvm install 14.16.0    安装node.js 14.16.0版本 会安装对应版本的npm</span><br><span class="line">nvm use 14.16.0       使用node.js 14.16.0版本</span><br></pre></td></tr></table></figure>
+
+<h4 id="二十七-jsdoc"><a href="#二十七-jsdoc" class="headerlink" title="二十七 jsdoc"></a>二十七 jsdoc</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">全局安装jsdoc</span><br><span class="line">%sudo npm i -g jsdoc </span><br><span class="line">生成jsdoc文件</span><br><span class="line">%jsdoc publisher/manager.js publisher/live.js </span><br></pre></td></tr></table></figure>
+
+<h4 id="二十八-md文档生成html"><a href="#二十八-md文档生成html" class="headerlink" title="二十八 md文档生成html"></a>二十八 md文档生成html</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">全局安装i5ting_toc</span><br><span class="line">sudo npm install i5ting_toc -g</span><br><span class="line">生成同级目录文档</span><br><span class="line">%i5ting_toc -f README.md  </span><br></pre></td></tr></table></figure>
+
+<h4 id="二十九-git配别名查看分支"><a href="#二十九-git配别名查看分支" class="headerlink" title="二十九 git配别名查看分支"></a>二十九 git配别名查看分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.lol &#x27;log --oneline --decorate --graph --all&#x27; </span><br></pre></td></tr></table></figure>
+
+<h4 id="三十-thinkjs"><a href="#三十-thinkjs" class="headerlink" title="三十 thinkjs"></a>三十 thinkjs</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -g think-cli</span><br><span class="line">安装完全局会有thinkjs命令</span><br><span class="line">thinkjs new 项目名       创建一个thinkjs脚手架</span><br><span class="line">thinkjs --help          查看thinkjs命令</span><br></pre></td></tr></table></figure>
+
+<h4 id="三十一-hexo"><a href="#三十一-hexo" class="headerlink" title="三十一 hexo"></a>三十一 hexo</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli    安装hexo脚手架</span><br><span class="line">npm init                   创建hexo项目</span><br><span class="line">进入项目hexo server         启动本地服务</span><br><span class="line">hexo new &quot;新文章&quot;           创建一篇新博文</span><br><span class="line">npm install hexo-deployer-git --save   安装部署依赖</span><br><span class="line">hexo deploy                一键部署</span><br><span class="line">注：需要设置deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:kuangxiaowang/kuangxiaowang.github.io.git</span><br><span class="line">  branch: main(必须是github仓库默认分支！！！)</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8C%87%E4%BB%A4/" rel="tag"># 指令</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/" rel="prev" title="面试题整理">
+                  <i class="fa fa-chevron-left"></i> 面试题整理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/31/%E5%B7%A5%E4%BD%9C%E7%BD%91%E7%AB%99%E6%94%B6%E8%97%8F/" rel="next" title="工作网站收藏">
+                  工作网站收藏 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NTg4OS8zMjM1Mw=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">狂小汪</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>
